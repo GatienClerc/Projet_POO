@@ -6,10 +6,12 @@
 - Timmy Marendaz
 - Iago Dolfini De Paula
 
-## Objectif
+---
+
+## Objectifs
 Créer en **Python** un projet de **bibliothèque** utilisant :
 - l’**héritage** (POO)
-- une **base de données externe**
+- une **base de données externe** SQLite
 
 ---
 
