@@ -13,14 +13,6 @@ Créer en **Python** un projet de **bibliothèque** utilisant :
 
 ---
 
-## Semaine 1
-
-### Objectifs
-1. Créer les groupes  
-2. Concevoir le **schéma de la base de données**  
-3. Se documenter sur la **récupération des informations depuis la DB** en **POO**
-
----
-
-## Rendus:
-Remise du **fichier `.md`** sur **Teams**
+## Instalation
+1. Cloner le répertoire en locale
+2. Faire linstale des bilbiothèque du fichier requirements
