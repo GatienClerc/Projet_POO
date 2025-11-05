@@ -13,6 +13,6 @@ Créer en **Python** un projet de **bibliothèque** utilisant :
 
 ---
 
-## Instalation
+## Installation
 1. Cloner le répertoire en locale
 2. Faire linstale des bilbiothèque du fichier requirements
