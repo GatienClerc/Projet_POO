@@ -17,5 +17,6 @@ Créer en **Python** un projet de **bibliothèque** utilisant :
 
 ## Installation
 1. Cloner le répertoire en locale
-2. Faire l'installation des bilbiothèques du fichier [requirements.txt](requirements.txt) || voici la comande pour l'installation des bibliotheques => pip install -r requirements.txt
+2. Faire l'installation des bilbiothèques du fichier [requirements.txt](requirements.txt)
+   voici la comande pour l'installation des bilbiothèques => pip install -r requirements.txt
 
