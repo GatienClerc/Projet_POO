@@ -1,5 +1,11 @@
 # Projet POO — Bibliothèque
 
+## Membres d'équipe
+- Gatien Clerc (Chef)
+- Jason Edmonds
+- Timmy Marendaz
+- Iago Dolfini De Paula
+
 ## Objectif
 Créer en **Python** un projet de **bibliothèque** utilisant :
 - l’**héritage** (POO)
