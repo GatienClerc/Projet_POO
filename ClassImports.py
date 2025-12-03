@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Nom du script  : statuts.py
-Description    : bibliotheque comme principe la POO avec customtkinter et  sqlalchimy
-Auteur         : Jason Edmonds
+Nom du script  : ClassImports.py
+Description    : Import de toutes les classes concernant la Base De Donnée
+Auteur         : Jason Roger Marc Edmonds
 Collaborateur  : Iago Dolfini, Gatien Clerc, Timmy Marendaz
 Date           : 2025-12-03
 Version        : 1.0
-Compatibilité  : macOS, Linux, Windows
+Compatibilité  : Windows, macOS, Linux
 """
 
 from Bibliotheque import Bibliotheque
