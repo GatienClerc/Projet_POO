@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Nom du script  : statuts.py
+Nom du script  : bibliothecaire.py
 Description    : bibliotheque comme principe la POO avec customtkinter et  sqlalchimy
 Auteur         : Gatien Clerc
 Collaborateur  : Iago Dolfini, Jason Edmonds, Timmy Marendaz
@@ -13,16 +13,9 @@ Compatibilité  : macOS, Linux, Windows
 from datetime import datetime
 from sqlalchemy import create_engine, DateTime, Integer
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, sessionmaker
-import os
+from main import Bibliotheque
 
-
-class Bibliotheque(DeclarativeBase):
-    pass
-
-class DatabaseManager:
-    def __init__(self, db_path="./DB/bibliotheque.sqlite"):
-        os.makedirs(os.path.dirname(db_path), exist_ok=True)
-        self.engine = create_engine(f'sqlite:///{db_path}')
-        Bibliotheque.metadata.create_all(self.engine)
-        Session = sessionmaker(bind=self.engine)
-        self.session = Session()
+class Genre(Bibliotheque):
+    __tablename__ = "Genre"
+    Id: Mapped[int] = mapped_column(primary_key=True)
+    Nom: Mapped[str]

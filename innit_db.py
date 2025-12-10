@@ -9,20 +9,21 @@ Date           : 2025-12-03
 Version        : 1.0
 Compatibilité  : macOS, Linux, Windows
 """
+from datetime import datetime
+from sqlalchemy import create_engine, DateTime, Integer
+from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, sessionmaker
 
 from datetime import datetime
 from sqlalchemy import create_engine, DateTime, Integer
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, sessionmaker
-import os
 
 
-class Bibliotheque(DeclarativeBase):
-    pass
 
-class DatabaseManager:
-    def __init__(self, db_path="./DB/bibliotheque.sqlite"):
-        os.makedirs(os.path.dirname(db_path), exist_ok=True)
-        self.engine = create_engine(f'sqlite:///{db_path}')
-        Bibliotheque.metadata.create_all(self.engine)
-        Session = sessionmaker(bind=self.engine)
-        self.session = Session()
+
+
+Bibliotheque.metadata.create_all(bdd)
+
+Session = sessionmaker(bind=bdd)
+session = Session()
+session.add(None)
+session.commit()
