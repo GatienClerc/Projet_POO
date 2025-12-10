@@ -1,7 +1,18 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Nom du script  : FonctionsLivres.py
+Description    : CRUD des livres (Create, Read, Update, Delete)
+Auteur         : Jason Roger Marc Edmonds
+Collaborateur  : Iago Dolfini, Gatien Clerc, Timmy Marendaz
+Date           : 2025-12-03
+Version        : 1.0
+Compatibilité  : Windows, macOS, Linux
+"""
+
 from datetime import datetime
 from sqlalchemy.orm import Session
 from Livre import *
-
 
 def ajout_livre(session: Session, isbn: int, title: str, date: datetime):
     nouveau_livre = Livre(
