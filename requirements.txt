@@ -1,4 +1,0 @@
-tkinter
-sqlite3
-os
-customtkinter
