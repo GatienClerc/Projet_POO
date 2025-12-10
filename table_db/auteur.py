@@ -18,6 +18,3 @@ from table_db.personne import Personne
 class Auteur(Personne):
     __tablename__ = "Auteur"
     Id: Mapped[int] = mapped_column(ForeignKey("Personne.Id"),primary_key=True)
-    Nom: Mapped[str] = mapped_column(String(50))
-    Prenom: Mapped[str] = mapped_column(String(50))
-    DateNaissance: Mapped[datetime] = mapped_column(DateTime)

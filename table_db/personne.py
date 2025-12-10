@@ -22,8 +22,5 @@ class Personne(Bibliotheque):
     Nom: Mapped[str] = mapped_column(String(50))
     Prenom: Mapped[str] = mapped_column(String(50))
     DateNaissance: Mapped[datetime] = mapped_column(DateTime)
-
-    __mapper_args__ = {
-        "polymorphic_on": Id/Nom/Prenom/DateNaissance,
-        "polymorphic_identity": "personne"
-    }
+    email: Mapped[String] = mapped_column(String(100))
+    Num_telephone: Mapped[int] = mapped_column(String(15))

@@ -11,15 +11,13 @@ Compatibilité  : macOS, Linux, Windows
 """
 
 from datetime import datetime
-from sqlalchemy import create_engine, DateTime, Integer
+from sqlalchemy import create_engine, DateTime, Integer, ForeignKey, String
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, sessionmaker
 from table_db.personne import Personne
 
 class Bibliothecaire(Personne):
     __tablename__ = "Bibliothécaire"
-    Id: Mapped[int] = mapped_column(primary_key=True)
-    Nom: Mapped[str]
-    Prenom: Mapped[str]
-    Login: Mapped[str]
-    Mdp: Mapped[str]
-    Mail: Mapped[str]
+    Id: Mapped[int] = mapped_column(ForeignKey("Personne.Id"), primary_key=True)
+    DateInscription: Mapped[datetime] = mapped_column(DateTime)
+    Login: Mapped[str]= mapped_column(String(100))
+    Mdp: Mapped[str]= mapped_column(String(100))

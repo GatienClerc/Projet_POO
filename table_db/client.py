@@ -11,16 +11,11 @@ Compatibilité  : macOS, Linux, Windows
 """
 
 from datetime import datetime
-from sqlalchemy import create_engine, DateTime, Integer
+from sqlalchemy import create_engine, DateTime, Integer, ForeignKey
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, sessionmaker
 from table_db.personne import Personne
 
 class Client(Personne):
     __tablename__ = "Client"
-    Id: Mapped[int] = mapped_column(primary_key=True)
-    Nom: Mapped[str]
-    Prenom: Mapped[str]
-    DateNaissance: Mapped[datetime] = mapped_column(DateTime)
+    Id: Mapped[int] = mapped_column(ForeignKey("Personne.Id"),primary_key=True)
     DateInscription: Mapped[datetime] = mapped_column(DateTime)
-    NumeroTelephone: Mapped[str]
-    Mail: Mapped[str]
