@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Nom du script  : FonctionsLivres.py
-Description    : CRUD des livres (Create, Read, Update, Delete)
+Nom du script  : FonctionsPersonnes.py
+Description    : CRUD des personnes (Create, Read, Update, Delete)
 Auteur         : Jason Roger Marc Edmonds
 Collaborateur  : Gatien Clerc, Iago Dolfini, Timmy Marendaz
 Date           : 2025-12-03
@@ -12,44 +12,46 @@ Compatibilité  : Windows, macOS, Linux
 
 from datetime import datetime
 from sqlalchemy.orm import Session
-from Livre import *
+from personne import *
 
-def ajout_personne(session: Session, id: int, prenom: str, nom: str, date: datetime):
-    nouveau_livre = Livre(
-        ID=id,
-        Prenom=prenom,
+def ajout_personne(session: Session, id: int, nom: str, prenom: str, dateNaissance: datetime):
+    nouvelle_personne = Personne(
+        Id=id,
         Nom=nom,
-        Date=date
+        Prenom=prenom,
+        DateNaissance=dateNaissance
     )
-    session.add(nouveau_livre)
+    session.add(nouvelle_personne)
     session.commit()
     with open("logs.txt", "a", encoding="utf-8") as f:
-        f.write(f"{datetime.now()} - Livre ajouté : {title} (ISBN: {isbn})\n")
+        f.write(f"{datetime.now()} - Personne ajoutée : {nom} {prenom}\n")
 
-def supprimer_personne(session: Session, isbn: int):
-    livre = session.query(Livre).filter_by(ISBN=isbn).first()
-    if livre:
-        session.delete(livre)
+def supprimer_personne(session: Session, id: int):
+    personne = session.query(Personne).filter_by(Id=id).first()
+    if personne:
+        session.delete(personne)
         session.commit()
         with open("logs.txt", "a", encoding="utf-8") as f:
-            f.write(f"{datetime.now()} - Livre supprimé : {livre.Title} (ISBN: {isbn})\n")
+            f.write(f"{datetime.now()} - Personne supprimée : {personne.Nom} {personne.Prenom} (ID: {id})\n")
     else:
-        print("Livre non trouvé.")
+        print("Personne non trouvée.")
 
-def modifier_personne(session: Session, isbn: int, nouveau_title: str = None, nouvelle_date: datetime = None):
-    livre = session.query(Livre).filter_by(ISBN=isbn).first()
-    if livre:
-        if nouveau_title:
-            livre.Title = nouveau_title
+def modifier_personne(session: Session, id: int, nouveau_nom: str = None, nouveau_prenom: str = None, nouvelle_date: datetime = None):
+    personne = session.query(Personne).filter_by(Id=id).first()
+    if personne:
+        if nouveau_nom:
+            personne.Nom = nouveau_nom
+        if nouveau_prenom:
+            personne.Prenom = nouveau_prenom
         if nouvelle_date:
-            livre.Date = nouvelle_date
+            personne.DateNaissance = nouvelle_date
         session.commit()
         with open("logs.txt", "a", encoding="utf-8") as f:
-            f.write(f"{datetime.now()} - Livre modifié : {livre.Title} (ISBN: {isbn})\n")
+            f.write(f"{datetime.now()} - Personne modifiée : {personne.Nom} {personne.Prenom} (ID: {id})\n")
     else:
-        print("Livre non trouvé.")
+        print("Personne non trouvée.")
 
 def lister_personnes(session: Session):
-    livres = session.query(Livre).all()
-    for livre in livres:
-        print(f"ISBN: {livre.ISBN}, Title: {livre.Title}, Date: {livre.Date}")
+    personnes = session.query(Personne).all()
+    for personne in personnes:
+        print(f"ID: {personne.Id}, Nom: {personne.Nom}, Prénom: {personne.Prenom}, Date de naissance: {personne.DateNaissance}")
