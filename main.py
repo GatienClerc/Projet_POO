@@ -5,8 +5,8 @@ Nom du script  : statuts.py
 Description    : bibliotheque comme principe la POO avec customtkinter et  sqlalchimy
 Auteur         : Gatien Clerc
 Collaborateur  : Iago Dolfini, Jason Edmonds, Timmy Marendaz
-Date           : 2025-12-03
-Version        : 1.0
+Date           : 2025-12-17
+Version        : 1.5
 Compatibilité  : macOS, Linux, Windows
 """
 
@@ -16,13 +16,34 @@ from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, sessionmaker
 import os
 
 
-class Bibliotheque(DeclarativeBase):
-    pass
+from database import engine, SessionLocal, Bibliotheque
+from models.__init__ import *
 
-class DatabaseManager:
-    def __init__(self, db_path="./DB/bibliotheque.sqlite"):
-        os.makedirs(os.path.dirname(db_path), exist_ok=True)
-        self.engine = create_engine(f'sqlite:///{db_path}')
-        Bibliotheque.metadata.create_all(self.engine)
-        Session = sessionmaker(bind=self.engine)
-        self.session = Session()
+def init_db():
+    Bibliotheque.metadata.create_all(bind=engine)
+
+def main():
+    init_db()
+    session = SessionLocal()
+
+
+
+    session.add_all([auteur, client])
+    session.commit()
+
+    personnes = session.query(Personne).all()
+    print("Personnes:")
+    for p in personnes:
+        print(p)
+
+    auteurs = session.query(Auteur).all()
+
+
+    print("\nAuteurs:")
+    for a in auteurs:
+        print(a)
+
+    session.close()
+
+if __name__ == "__main__":
+    main()
