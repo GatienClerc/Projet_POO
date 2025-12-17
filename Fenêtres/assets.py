@@ -1,7 +1,6 @@
 import customtkinter as ctk
 
 
-
 # ------------------------------------------------------------
 # Bouton XL
 # ------------------------------------------------------------
@@ -98,6 +97,44 @@ class BoutonXS(ctk.CTkButton):
 
 
 # ------------------------------------------------------------
+# Bouton retour
+# ------------------------------------------------------------
+class BoutonRetour(ctk.CTkButton):
+    def __init__(self, master, text="<", command=None):
+        super().__init__(
+            master,
+            text=text,
+            command=command,
+            fg_color="#1f6aa5",
+            hover_color="#144e75",
+            corner_radius=5,
+            height=20,
+            width=20,
+            font=("Helvetica", 12),
+            text_color="white"
+        )
+
+
+# ------------------------------------------------------------
+# Bouton retour
+# ------------------------------------------------------------
+class BoutonAvant(ctk.CTkButton):
+    def __init__(self, master, text=">", command=None):
+        super().__init__(
+            master,
+            text=text,
+            command=command,
+            fg_color="#1f6aa5",
+            hover_color="#144e75",
+            corner_radius=5,
+            height=20,
+            width=20,
+            font=("Helvetica", 12),
+            text_color="white"
+        )
+
+
+# ------------------------------------------------------------
 # Label avec background
 # ------------------------------------------------------------
 class LabelBG(ctk.CTkFrame):
@@ -131,8 +168,6 @@ class Label_Titre(ctk.CTkLabel):
         super().__init__(
             master,
             text=text,
-            height=40,
-            width=150,
             font=("Helvetica", 55),
             text_color="white"
         )
@@ -146,8 +181,6 @@ class Label_Sous_titre(ctk.CTkLabel):
         super().__init__(
             master,
             text=text,
-            height=40,
-            width=150,
             font=("Helvetica", 25),
             text_color="white"
         )
@@ -161,8 +194,6 @@ class Label_Paragraphe(ctk.CTkLabel):
         super().__init__(
             master,
             text=text,
-            height=40,
-            width=150,
             font=("Helvetica", 12),
             text_color="white"
         )
@@ -214,6 +245,22 @@ class EntryXL(ctk.CTkEntry):
             border_width=2,
             font=("Helvetica", 12),
             justify="center"
+        )
+
+
+# ------------------------------------------------------------
+# Entry texte Long
+# ------------------------------------------------------------
+class EntryLong(ctk.CTkEntry):
+    def __init__(self, master, placeholder="login..."):
+        super().__init__(
+            master,
+            placeholder_text=placeholder,
+            height=25,
+            width=440,
+            corner_radius=5,
+            border_width=2,
+            font=("Helvetica", 12),
         )
 
 
