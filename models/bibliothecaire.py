@@ -14,12 +14,12 @@ from sqlalchemy import DateTime, String, Column
 from models.personne import Personne
 
 class Bibliothecaire(Personne):
-    DateInscription = Column(DateTime)
-    Login = Column(String)
-    Mdp = Column(String)
+    DateInscription = Column(DateTime, nullable=False)
+    Login = Column(String, nullable=False)
+    Mdp = Column(String, nullable=False)
 
     __mapper_args__ = {
-        "polymorphic_identity": "biblothecaire",
+        "polymorphic_identity": "Bibliothecaire",
     }
 
     def __repr__(self):

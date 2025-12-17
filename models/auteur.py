@@ -14,10 +14,11 @@ from sqlalchemy import String, Column
 from models.personne import Personne
 
 class Auteur(Personne):
-    genre_litteraire = Column(String)
+
+    genre_litteraire = Column(String, nullable=False)
 
     __mapper_args__ = {
-        "polymorphic_identity": "auteur"
+        "polymorphic_identity": "auteur",
     }
 
     def __repr__(self):

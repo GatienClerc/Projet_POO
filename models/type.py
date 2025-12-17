@@ -14,13 +14,10 @@ from sqlalchemy import Integer, Column, String
 from database import Bibliotheque
 
 class Type(Bibliotheque):
-    __tablename__ = "Statuts"
+    __tablename__ = 'types'
+
     Id = Column(Integer, primary_key=True)
     Nom = Column(String, nullable=False)
-
-    __mapper_args__ = {
-        "polymorphic_identity": "type",
-    }
 
     def __repr__(self):
         return f"<type {self.Id} {self.Nom}>"

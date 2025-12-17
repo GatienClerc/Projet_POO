@@ -14,13 +14,17 @@ from sqlalchemy import Integer, String, Column, Date
 from database import Bibliotheque
 
 class Personne(Bibliotheque):
-    __tablename__ = "personne"
+    __tablename__ = "personnes"
+
     Id = Column(Integer, primary_key=True, autoincrement=True)
     Nom = Column(String, nullable=False)
     Prenom = Column(String, nullable=False)
     DateNaissance = Column(Date, nullable=False)
     email = Column(String, nullable=False)
     Num_telephone = Column(Integer, nullable=False)
+
+    # Champ discriminant pour l’héritage
+    type = Column(String, nullable=False)
 
     __mapper_args__ = {
         "polymorphic_on": type,

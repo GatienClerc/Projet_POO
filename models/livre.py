@@ -20,9 +20,5 @@ class Livre(Bibliotheque):
     Title = Column(String, nullable=False)
     Date = Column(Date, nullable=False)
 
-    __mapper_args__ = {
-        "polymorphic_identity": "livre",
-    }
-
     def __repr__(self):
         return f"<livre {self.Id} {self.Title} {self.ISBN} {self.Date}>"

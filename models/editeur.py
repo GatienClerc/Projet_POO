@@ -14,7 +14,8 @@ from sqlalchemy import String, Column
 from models.personne import Personne
 
 class Editeur(Personne):
-    Localité = Column(String)
+
+    Localite = Column(String, nullable=False)
 
     __mapper_args__ = {
         "polymorphic_identity": "editeur",

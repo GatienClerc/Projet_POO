@@ -26,23 +26,6 @@ def main():
     init_db()
     session = SessionLocal()
 
-
-
-    session.add_all([auteur, client])
-    session.commit()
-
-    personnes = session.query(Personne).all()
-    print("Personnes:")
-    for p in personnes:
-        print(p)
-
-    auteurs = session.query(Auteur).all()
-
-
-    print("\nAuteurs:")
-    for a in auteurs:
-        print(a)
-
     session.close()
 
 if __name__ == "__main__":

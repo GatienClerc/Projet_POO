@@ -14,10 +14,9 @@ from sqlalchemy import DateTime, Column
 from models.personne import Personne
 
 class Client(Personne):
-    DateInscription = Column(DateTime)
 
     __mapper_args__ = {
-        "polymorphic_identity": "client"
+        "polymorphic_identity": "Client",
     }
 
     def __repr__(self):
