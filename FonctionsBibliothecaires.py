@@ -14,10 +14,9 @@ from datetime import datetime
 from sqlalchemy.orm import Session
 from bibliothecaire import *
 
-def ajout_bibliothecaire(session: Session, id: int, nom: str, prenom: str, dateNaissance: datetime,
+def ajout_bibliothecaire(session: Session, nom: str, prenom: str, dateNaissance: datetime,
                          dateInscription: datetime, login: str, mdp: str):
     nouvel_bibliothecaire = Bibliothecaire(
-        Id=id,
         Nom=nom,
         Prenom=prenom,
         DateNaissance=dateNaissance,
