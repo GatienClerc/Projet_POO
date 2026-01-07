@@ -25,4 +25,4 @@ class biblio_login(ctk.CTkFrame):
 
     def on_confirm(self):
         # plus tard: vérifier login/mot de passe
-        self.controller.show_page("livres")
+        self.controller.show_page("home")

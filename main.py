@@ -51,14 +51,10 @@ class App(ctk.CTk):
 
         self.register_page("login", biblio_login)
         self.register_page("home", biblio_home)
-
-        # pages du bas (schéma)
         self.register_page("liste", biblio_liste)
         self.register_page("emprunt", biblio_emprunt)
         self.register_page("retour", biblio_retour)
         self.register_page("historique", biblio_historique)
-
-        # page détail livre (depuis liste -> "afficher +")
         self.register_page("livre", biblio_livres)
 
         # ----------------------------

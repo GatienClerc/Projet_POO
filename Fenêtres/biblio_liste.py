@@ -18,21 +18,25 @@ class biblio_liste(ctk.CTkFrame):
         # -----------------------------
         header = ctk.CTkFrame(self, fg_color="transparent")
         header.grid(row=0, column=0, sticky="ew", padx=15, pady=(10, 0))
-        header.grid_columnconfigure(0, weight=1)
-        header.grid_columnconfigure(1, weight=0)
 
-        titre = Label_Titre(header, text="listes")
-        titre.grid(row=0, column=0, padx=240, sticky="e")
+        # 4 colonnes: flèche retour | flèche avant | titre | bouton actif
+        header.grid_columnconfigure(0, weight=0)
+        header.grid_columnconfigure(1, weight=0)
+        header.grid_columnconfigure(2, weight=1)
+        header.grid_columnconfigure(3, weight=0)
+
+        # fleches navigation (EN GRID, pas pack)
+        btn_retour = BoutonRetour(header)
+        btn_retour.grid(row=0, column=0, padx=(0, 8), pady=10, sticky="w")
+
+        btn_avant = BoutonAvant(header)
+        btn_avant.grid(row=0, column=1, padx=(0, 12), pady=10, sticky="w")
+
+        titre = Label_Sous_titre(header, text="listes")
+        titre.grid(row=0, column=2, sticky="n", pady=10)
 
         btn_actif = BoutonXS(header, text="bibliothécaire actif")
-        btn_actif.grid(row=0, column=1, sticky="e", padx=(10, 0), pady=10)
-        btn_actif.configure(
-            fg_color="#f2f2f2",
-            hover_color="#e6e6e6",
-            text_color="black",
-            border_width=1,
-            border_color="black"
-        )
+        btn_actif.grid(row=0, column=3, sticky="e", padx=(10, 0), pady=10)
 
         # -----------------------------
         # BARRE DE RECHERCHE (centrée)
@@ -44,13 +48,6 @@ class biblio_liste(ctk.CTkFrame):
         search = EntryXXL(search_row, placeholder="Barre de recherche")
         search.grid(row=0, column=0, pady=8)
 
-        # style maquette (blanc + bordure)
-        search.configure(
-            fg_color="#ffffff",
-            text_color="black",
-            border_color="#333333"
-        )
-
         # -----------------------------
         # ZONE SCROLL
         # -----------------------------
@@ -59,10 +56,6 @@ class biblio_liste(ctk.CTkFrame):
 
         for c in range(4):
             scroll.grid_columnconfigure(c, weight=1, uniform="cards")
-
-        # Catégorie (à gauche)
-        cat = Label_Paragraphe(scroll, text="v catégorie1")
-        cat.grid(row=0, column=0, columnspan=4, sticky="w", padx=10, pady=(10, 10))
 
         # 4 cartes
         self._create_card(scroll, 1, 0)
@@ -73,13 +66,6 @@ class biblio_liste(ctk.CTkFrame):
         # bouton afficher tout à droite
         btn_all = BoutonXS(scroll, text="afficher tout")
         btn_all.grid(row=2, column=3, sticky="e", padx=10, pady=(10, 25))
-        btn_all.configure(
-            fg_color="#f2f2f2",
-            hover_color="#e6e6e6",
-            text_color="black",
-            border_width=1,
-            border_color="black"
-        )
 
     # -----------------------------
     # 1 CARD
@@ -87,10 +73,8 @@ class biblio_liste(ctk.CTkFrame):
     def _create_card(self, master, row, col):
         card = ctk.CTkFrame(
             master,
-            fg_color="#f2f2f2",
-            corner_radius=2,
-            border_width=1,
-            border_color="black",
+            fg_color="#3b3b3b",
+            corner_radius=8,
             width=170,
             height=230
         )
@@ -123,23 +107,16 @@ class biblio_liste(ctk.CTkFrame):
         img_frame.place(relx=0.49, rely=0.31, anchor="center")
         img_frame.grid_propagate(False)
 
-        # Textes NOIRS
-        lbl_nom = ctk.CTkLabel(card, text="nom", font=("Helvetica", 12), text_color="black")
+        # Textes
+        lbl_nom = Label_Paragraphe(card, text="nom")
         lbl_nom.place(relx=0.50, rely=0.62, anchor="center")
 
-        lbl_type = ctk.CTkLabel(card, text="type", font=("Helvetica", 12), text_color="black")
+        lbl_type = Label_Paragraphe(card, text="type")
         lbl_type.place(relx=0.50, rely=0.71, anchor="center")
 
-        lbl_auteur = ctk.CTkLabel(card, text="Auteur", font=("Helvetica", 12), text_color="black")
+        lbl_auteur = Label_Paragraphe(card, text="Auteur")
         lbl_auteur.place(relx=0.50, rely=0.80, anchor="center")
 
-        # bouton afficher + (style maquette)
+        # bouton afficher
         btn = BoutonXS(card, text="afficher +")
         btn.place(relx=0.50, rely=0.90, anchor="center")
-        btn.configure(
-            fg_color="#f2f2f2",
-            hover_color="#e6e6e6",
-            text_color="black",
-            border_width=1,
-            border_color="black"
-        )

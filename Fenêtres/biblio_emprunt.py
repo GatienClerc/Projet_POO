@@ -13,10 +13,24 @@ class biblio_emprunt(ctk.CTkFrame):
         header = ctk.CTkFrame(self, fg_color="transparent")
         header.pack(fill="x", pady=(10, 0))
 
-        # boutons en haut à droite (comme son .place)
-        # -> on garde le rendu "collé en haut à droite"
-        BoutonS(header, text="bibliothéquaire actif").pack(side="right", padx=(0, 10))
-        BoutonS(header, text="disconnect").pack(side="right", padx=(0, 10))
+        # ✅ header en GRID (ne pas mélanger pack/grid dans le header)
+        header.grid_columnconfigure(0, weight=0)  # retour
+        header.grid_columnconfigure(1, weight=0)  # avant
+        header.grid_columnconfigure(2, weight=1)  # espace
+        header.grid_columnconfigure(3, weight=0)  # actif
+        header.grid_columnconfigure(4, weight=0)  # disconnect
+
+        btn_retour = BoutonRetour(header)
+        btn_retour.grid(row=0, column=0, padx=(10, 6), pady=10, sticky="w")
+
+        btn_avant = BoutonAvant(header)
+        btn_avant.grid(row=0, column=1, padx=(0, 12), pady=10, sticky="w")
+
+        btn_actif = BoutonS(header, text="bibliothéquaire actif")
+        btn_actif.grid(row=0, column=3, padx=(0, 10), pady=10, sticky="e")
+
+        btn_disc = BoutonS(header, text="disconnect")
+        btn_disc.grid(row=0, column=4, padx=(0, 10), pady=10, sticky="e")
 
         # titre
         Label_Sous_titre(self, text="Emprunt livre").pack(pady=(10, 0))
@@ -86,7 +100,4 @@ class biblio_emprunt(ctk.CTkFrame):
         BoutonXS(btn_row, text="confirmer", command=self.on_confirmer).pack(side="right")
 
     def on_confirmer(self):
-        # placeholder -> tu brancheras DB / validation
-        # exemple navigation:
-        # self.controller.show_page("home")
         pass
