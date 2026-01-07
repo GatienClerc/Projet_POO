@@ -59,6 +59,24 @@ class BoutonM(ctk.CTkButton):
 
 
 # ------------------------------------------------------------
+# Bouton XM
+# ------------------------------------------------------------
+class BoutonXM(ctk.CTkButton):
+    def __init__(self, master, text="Bouton", command=None):
+        super().__init__(
+            master,
+            text=text,
+            command=command,
+            fg_color="#1f6aa5",
+            hover_color="#144e75",
+            corner_radius=5,
+            height=40,
+            width=150,
+            font=("Helvetica", 12),
+            text_color="white"
+        )
+
+# ------------------------------------------------------------
 # Bouton S
 # ------------------------------------------------------------
 class BoutonS(ctk.CTkButton):
@@ -116,7 +134,7 @@ class BoutonRetour(ctk.CTkButton):
 
 
 # ------------------------------------------------------------
-# Bouton retour
+# Bouton Avant
 # ------------------------------------------------------------
 class BoutonAvant(ctk.CTkButton):
     def __init__(self, master, text=">", command=None):

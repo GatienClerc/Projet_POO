@@ -1,51 +1,19 @@
-from pickle import FRAME
 import customtkinter as ctk
-from assets import *
+from .assets import *
 
 
-
-# -----------------------------------------------------
-# Variables
-# -----------------------------------------------------
-
-# Dimensions de la fenêtre
-window_w = 880
-window_h = 500
-
-
-class Application(ctk.CTk):
-    def __init__(self):
-        super().__init__()
+class biblio_livres(ctk.CTkFrame):
+    def __init__(self, parent, controller):
+        super().__init__(master=parent)
+        self.controller = controller
 
         # -----------------------------------------------------
-        # Titre de la fenêtre
+        # ELEMENTS UI (page)
         # -----------------------------------------------------
-        self.title("Bibliothèque Livre")
-
-        # Obligatoire pour calculer taille réelle de l'écran
-        self.update_idletasks()
-
-        # Dimensions écran
-        screen_w = self.winfo_screenwidth()
-        screen_h = self.winfo_screenheight()
-
-        # Calcul du centre
-        pos_x = (screen_w // 2) - (window_w // 2)
-        pos_y = (screen_h // 2) - (window_h // 2)
-
-        # Appliquer la géométrie centrée
-        self.geometry(f"{window_w}x{window_h}+{pos_x}+{pos_y}")
-
-        # -----------------------------------------------------
-        # ELEMENTS UI
-        # -----------------------------------------------------
-
-        # couleur bg
-        bg_color = self.cget("fg_color")
 
         # frame 1 --------------------------------------------
         Frame1 = ctk.CTkFrame(self, fg_color=self.cget("fg_color"))
-        Frame1.pack(fill="x", pady=(10,0))  # prend toute la largeur de la fenêtre
+        Frame1.pack(fill="x", pady=(10, 0))  # prend toute la largeur
 
         # Elements dans la frame
         label = Label_Sous_titre(Frame1, text="livre")
@@ -53,6 +21,14 @@ class Application(ctk.CTk):
 
         bouton = BoutonS(Frame1, text="Bibliothéquaire actif")
         bouton.pack(side="right", padx=20, pady=5)
+
+        # fleches navigation (pour l'instant: placeholder)
+        # ⚠️ si tes BoutonRetour/BoutonAvant n'acceptent pas command=, enlève command=
+        btn_retour = BoutonRetour(Frame1)
+        btn_retour.pack(side="left", padx=(20, 5))
+
+        btn_avant = BoutonAvant(Frame1)
+        btn_avant.pack(side="left")
 
         # frame 2 -------------------------------------------
         Frame2 = ctk.CTkFrame(self, fg_color=self.cget("fg_color"))
@@ -66,10 +42,9 @@ class Application(ctk.CTk):
         Sous_sous_frame1 = ctk.CTkFrame(Sous_frame1, fg_color=self.cget("fg_color"))
         Sous_sous_frame1.pack(side="left", padx=10, pady=10)
 
-        # Configuration des colonnes
+        # Configuration des colonnes (pour les Entry)
         Sous_sous_frame1.grid_columnconfigure(1, weight=1)
 
-        # Elements dans la frame
         # ----- Ligne 0 : Nom + Statut -----
         ctk.CTkLabel(Sous_sous_frame1, text="Nom :").grid(row=0, column=0, sticky="w", pady=5)
         Entry_nom = EntryL(Sous_sous_frame1)
@@ -103,31 +78,21 @@ class Application(ctk.CTk):
         Sous_sous_frame2 = ctk.CTkFrame(Sous_frame1, fg_color=self.cget("fg_color"))
         Sous_sous_frame2.pack(side="right", padx=10)
 
-        # Elements dans la frame
-        Image_frame= ctk.CTkFrame(Sous_sous_frame2, width=170, height=240, fg_color="lightgray")
+        Image_frame = ctk.CTkFrame(Sous_sous_frame2, width=170, height=240, fg_color="lightgray")
         Image_frame.pack()
         Image_frame.pack_propagate(False)
 
-        # placeholder
-        image_label = ctk.CTkLabel(Image_frame)
+        # placeholder image
+        image_label = ctk.CTkLabel(Image_frame, text="")
         image_label.pack(expand=True)
-        #image_label.configure(image=...)
+        # image_label.configure(image=...)
 
         # ---------- Sous_frame2 (en bas) ----------
         Sous_frame2 = ctk.CTkFrame(Frame2, fg_color=self.cget("fg_color"))
         Sous_frame2.pack(fill="x", pady=5)
 
-        # Elements dans la frame
-        Label= Label_Paragraphe(Sous_frame2, text="Description :")
+        Label = Label_Paragraphe(Sous_frame2, text="Description :")
         Label.pack(anchor="w")
 
-        Entry= EntryXXXL(Sous_frame2)
-        Entry.pack(anchor="w", padx=10)
-
-
-# -----------------------------------------------------
-# Mainloop
-# -----------------------------------------------------
-if __name__ == "__main__":
-    app = Application()
-    app.mainloop()
+        Entry_desc = EntryXXXL(Sous_frame2)
+        Entry_desc.pack(anchor="w", padx=10)

@@ -1,73 +1,28 @@
-from pickle import FRAME
 import customtkinter as ctk
-from assets import *
+from .assets import *
 
+class biblio_login(ctk.CTkFrame):
+    def __init__(self, parent, controller):
+        super().__init__(master=parent)
+        self.controller = controller
 
-
-# -----------------------------------------------------
-# Variables
-# -----------------------------------------------------
-
-# Dimensions de la fenêtre
-window_w = 880
-window_h = 500
-
-
-class Application(ctk.CTk):
-    def __init__(self):
-        super().__init__()
-
-        # -----------------------------------------------------
-        # Titre de la fenêtre
-        # -----------------------------------------------------
-        self.title("Login")
-
-        # Obligatoire pour calculer taille réelle de l'écran
-        self.update_idletasks()
-
-        # Dimensions écran
-        screen_w = self.winfo_screenwidth()
-        screen_h = self.winfo_screenheight()
-
-        # Calcul du centre
-        pos_x = (screen_w // 2) - (window_w // 2)
-        pos_y = (screen_h // 2) - (window_h // 2)
-
-        # Appliquer la géométrie centrée
-        self.geometry(f"{window_w}x{window_h}+{pos_x}+{pos_y}")
-
-        # -----------------------------------------------------
-        # ELEMENTS UI
-        # -----------------------------------------------------
-
-        # couleur bg
-        bg_color = self.cget("fg_color")
-
-        # Creation de la frame
-        Frame1 = ctk.CTkFrame(self, fg_color=self.cget("fg_color"))
-        Frame1.grid(column=0, row=0)
-
-        # Configuration de la frame au centre de la fenetre
-        self.grid_rowconfigure(0, weight=1)
-        self.grid_columnconfigure(0, weight=1)
+        # Frame principale de ta page login
+        frame1 = ctk.CTkFrame(self, fg_color=self.cget("fg_color"))
+        frame1.pack(expand=True)  # centre naturellement dans la page
 
         # Elements dans la frame
-        Label = Label_Titre(Frame1, text="Bibliothèque")
-        Label.pack(pady=(0,20))
+        label = Label_Titre(frame1, text="Bibliothèque")
+        label.pack(pady=(0, 20))
 
-        Entry = EntryXL(Frame1, placeholder="Login")
-        Entry.pack(pady=10)
+        entry_login = EntryXL(frame1, placeholder="Login")
+        entry_login.pack(pady=10)
 
-        Entry = EntryXL(Frame1, placeholder="Mot de passe")
-        Entry.pack(pady=10)
+        entry_pwd = EntryXL(frame1, placeholder="Mot de passe")
+        entry_pwd.pack(pady=10)
 
-        Bouton = BoutonS(Frame1, text="Confirmer")
-        Bouton.pack(pady=10)
+        bouton = BoutonS(frame1, text="Confirmer", command=self.on_confirm)
+        bouton.pack(pady=10)
 
-
-# -----------------------------------------------------
-# Mainloop
-# -----------------------------------------------------
-if __name__ == "__main__":
-    app = Application()
-    app.mainloop()
+    def on_confirm(self):
+        # plus tard: vérifier login/mot de passe
+        self.controller.show_page("livres")
