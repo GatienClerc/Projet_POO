@@ -3,18 +3,13 @@
 """
 Nom du script  : statuts.py
 Description    : bibliotheque comme principe la POO avec customtkinter et  sqlalchimy
-Auteur         : Gatien Clerc
+Auteur         : Gatien Clerc & Jason Edmonds
+Basé sur       : exemple de JIE
 Collaborateur  : Iago Dolfini, Jason Edmonds, Timmy Marendaz
 Date           : 2025-12-17
 Version        : 1.5
 Compatibilité  : macOS, Linux, Windows
 """
-
-from datetime import datetime
-from sqlalchemy import create_engine, DateTime, Integer
-from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, sessionmaker
-import os
-
 
 from database import engine, SessionLocal, Bibliotheque
 from models.__init__ import *

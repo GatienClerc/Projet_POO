@@ -20,4 +20,4 @@ class Client(Personne):
     }
 
     def __repr__(self):
-        return f"<client {self.Id} {self.Nom} {self.Prenom} {self.DateNaissance} {self.email} {self.Num_telephone} {self.DateInscription}>"
+        return f"<client {self.Id} {self.Nom} {self.Prenom} {self.DateNaissance} {self.email} {self.Num_telephone} {self.DateNaissance}>"
