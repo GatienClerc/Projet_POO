@@ -11,7 +11,7 @@ Compatibilité  : macOS, Linux, Windows
 """
 
 from sqlalchemy import Integer, String, Column, Date
-from ...database import Bibliotheque
+from Projet_POO.database import Bibliotheque
 
 class Personne(Bibliotheque):
     __tablename__ = "personnes"

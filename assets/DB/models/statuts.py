@@ -10,14 +10,14 @@ Version        : 1.3
 Compatibilité  : macOS, Linux, Windows
 """
 
-from sqlalchemy import Integer, Column, String
-from ...database import Bibliotheque
+from sqlalchemy import Integer, String, Column
+from Projet_POO.database import Bibliotheque
 
-class Type(Bibliotheque):
-    __tablename__ = 'types'
+class Statuts(Bibliotheque):
+    __tablename__ = 'statuts'
 
     Id = Column(Integer, primary_key=True)
     Nom = Column(String, nullable=False)
 
     def __repr__(self):
-        return f"<type {self.Id} {self.Nom}>"
+        return f"<status {self.Id} {self.Nom}>"

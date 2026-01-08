@@ -11,7 +11,7 @@ Compatibilité  : macOS, Linux, Windows
 """
 
 from sqlalchemy import Integer, Column, String
-from ...database import Bibliotheque
+from Projet_POO.database import Bibliotheque
 
 class Genre(Bibliotheque):
     __tablename__ = 'genres'

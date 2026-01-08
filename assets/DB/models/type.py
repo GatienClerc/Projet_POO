@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Nom du script  : livre.py
+Nom du script  : personne.py
 Description    : bibliotheque comme principe la POO avec customtkinter et  sqlalchimy
 Auteur         : Gatien Clerc
 Collaborateur  : Iago Dolfini, Jason Edmonds, Timmy Marendaz
@@ -10,15 +10,14 @@ Version        : 1.3
 Compatibilité  : macOS, Linux, Windows
 """
 
-from sqlalchemy import Integer, Column, String, Date
-from ...database import Bibliotheque
+from sqlalchemy import Integer, Column, String
+from Projet_POO.database import Bibliotheque
 
-class Livre(Bibliotheque):
-    __tablename__ = "livre"
+class Type(Bibliotheque):
+    __tablename__ = 'types'
+
     Id = Column(Integer, primary_key=True)
-    ISBN = Column(Integer, nullable=False)
-    Title = Column(String, nullable=False)
-    Date = Column(Date, nullable=False)
+    Nom = Column(String, nullable=False)
 
     def __repr__(self):
-        return f"<livre {self.Id} {self.Title} {self.ISBN} {self.Date}>"
+        return f"<type {self.Id} {self.Nom}>"
