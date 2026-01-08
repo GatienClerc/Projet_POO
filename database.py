@@ -14,8 +14,7 @@ Compatibilité  : macOS, Linux, Windows
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
 
-DATABASE_URL = "sqlite:///assets/DB/bibliotheque.sqlite"
-DB_PATH = "assets/DB/bibliotheque.sqlite"
+DATABASE_URL = "sqlite:///DB/biblioteque.sqlite"
 
 # Base pour tous les modèles
 Bibliotheque = declarative_base()
