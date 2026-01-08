@@ -8,13 +8,22 @@ class biblio_home(ctk.CTkFrame):
         self.controller = controller
 
         # -------------------------------
+        # Flèches navigation (haut gauche)
+        # -------------------------------
+        NavArrows(self, controller).pack(side="top", anchor="nw", padx=10, pady=10)
+
+        # -------------------------------
         # Boutons en haut à droite
         # -------------------------------
         top_right = ctk.CTkFrame(self, fg_color="transparent")
         top_right.pack(side="top", anchor="ne", pady=8, padx=8)
 
         BoutonS(top_right, text="bibliothéquaire actif").pack(anchor="e")
-        BoutonS(top_right, text="disconnect", command=lambda: controller.show_page("login")).pack(anchor="e", pady=(4, 0))
+        BoutonS(
+            top_right,
+            text="disconnect",
+            command=lambda: controller.show_page("login")
+        ).pack(anchor="e", pady=(4, 0))
 
         # -------------------------------
         # Titre
@@ -25,8 +34,17 @@ class biblio_home(ctk.CTkFrame):
         # -------------------------------
         # Boutons centraux (popups)
         # -------------------------------
-        BoutonL(self, text="Nouveau livre", command=controller.open_ajout_livre).pack(pady=10)
-        BoutonL(self, text="Nouveau client", command=controller.open_ajout_client).pack(pady=10)
+        BoutonL(
+            self,
+            text="Nouveau livre",
+            command=controller.open_ajout_livre
+        ).pack(pady=10)
+
+        BoutonL(
+            self,
+            text="Nouveau client",
+            command=controller.open_ajout_client
+        ).pack(pady=10)
 
         # -------------------------------
         # Boutons du bas (navigation pages)
@@ -34,7 +52,26 @@ class biblio_home(ctk.CTkFrame):
         bottom_frame = ctk.CTkFrame(self, fg_color="transparent")
         bottom_frame.pack(pady=40)
 
-        BoutonXL(bottom_frame, text="Listes Livres", command=lambda: controller.show_page("liste")).pack(side="left", padx=10)
-        BoutonXL(bottom_frame, text="Emprunt livre", command=lambda: controller.show_page("emprunt")).pack(side="left", padx=10)
-        BoutonXL(bottom_frame, text="Retour Livres", command=lambda: controller.show_page("retour")).pack(side="left", padx=10)
-        BoutonXL(bottom_frame, text="Historique Livres", command=lambda: controller.show_page("historique")).pack(side="left", padx=10)
+        BoutonXL(
+            bottom_frame,
+            text="Listes Livres",
+            command=lambda: controller.show_page("liste")
+        ).pack(side="left", padx=10)
+
+        BoutonXL(
+            bottom_frame,
+            text="Emprunt livre",
+            command=lambda: controller.show_page("emprunt")
+        ).pack(side="left", padx=10)
+
+        BoutonXL(
+            bottom_frame,
+            text="Retour Livres",
+            command=lambda: controller.show_page("retour")
+        ).pack(side="left", padx=10)
+
+        BoutonXL(
+            bottom_frame,
+            text="Historique Livres",
+            command=lambda: controller.show_page("historique")
+        ).pack(side="left", padx=10)

@@ -7,92 +7,88 @@ class biblio_livres(ctk.CTkFrame):
         super().__init__(master=parent)
         self.controller = controller
 
-        # -----------------------------------------------------
-        # ELEMENTS UI (page)
-        # -----------------------------------------------------
+        # -------------------------------
+        # Flèches navigation (haut gauche)
+        # -------------------------------
+        NavArrows(self, controller).pack(side="top", anchor="nw", padx=10, pady=10)
 
-        # frame 1 --------------------------------------------
-        Frame1 = ctk.CTkFrame(self, fg_color=self.cget("fg_color"))
-        Frame1.pack(fill="x", pady=(10, 0))  # prend toute la largeur
+        # -------------------------------
+        # Header (titre + utilisateur actif)
+        # -------------------------------
+        header = ctk.CTkFrame(self, fg_color="transparent")
+        header.pack(fill="x", pady=(10, 0))
 
-        # Elements dans la frame
-        label = Label_Sous_titre(Frame1, text="livre")
-        label.place(relx=0.5, rely=0.5, anchor="center")
+        Label_Sous_titre(
+            header,
+            text="Livre"
+        ).place(relx=0.5, rely=0.5, anchor="center")
 
-        bouton = BoutonS(Frame1, text="Bibliothéquaire actif")
-        bouton.pack(side="right", padx=20, pady=5)
+        BoutonS(
+            header,
+            text="Bibliothécaire actif"
+        ).pack(side="right", padx=20, pady=5)
 
-        # fleches navigation (pour l'instant: placeholder)
-        # ⚠️ si tes BoutonRetour/BoutonAvant n'acceptent pas command=, enlève command=
-        btn_retour = BoutonRetour(Frame1)
-        btn_retour.pack(side="left", padx=(20, 5))
+        # -------------------------------
+        # Contenu principal
+        # -------------------------------
+        body = ctk.CTkFrame(self, fg_color="transparent")
+        body.pack(fill="x", pady=10)
 
-        btn_avant = BoutonAvant(Frame1)
-        btn_avant.pack(side="left")
+        # -------------------------------
+        # Ligne du haut (infos gauche + image droite)
+        # -------------------------------
+        top_row = ctk.CTkFrame(body, fg_color="transparent")
+        top_row.pack(fill="x", pady=5)
 
-        # frame 2 -------------------------------------------
-        Frame2 = ctk.CTkFrame(self, fg_color=self.cget("fg_color"))
-        Frame2.pack(fill="x", pady=10)
+        left_panel = ctk.CTkFrame(top_row, fg_color="transparent")
+        left_panel.pack(side="left", padx=10, pady=10)
 
-        # ---------- Sous_frame1 (en haut) ----------
-        Sous_frame1 = ctk.CTkFrame(Frame2, fg_color=self.cget("fg_color"))
-        Sous_frame1.pack(fill="x", pady=5)
+        right_panel = ctk.CTkFrame(top_row, fg_color="transparent")
+        right_panel.pack(side="right", padx=10)
 
-        # -------- Sous_sous_frame1 (Gauche) --------
-        Sous_sous_frame1 = ctk.CTkFrame(Sous_frame1, fg_color=self.cget("fg_color"))
-        Sous_sous_frame1.pack(side="left", padx=10, pady=10)
+        left_panel.grid_columnconfigure(1, weight=1)
 
-        # Configuration des colonnes (pour les Entry)
-        Sous_sous_frame1.grid_columnconfigure(1, weight=1)
+        ctk.CTkLabel(left_panel, text="Nom :").grid(row=0, column=0, sticky="w", pady=5)
+        self.entry_nom = EntryL(left_panel)
+        self.entry_nom.grid(row=0, column=1, padx=10, pady=5)
 
-        # ----- Ligne 0 : Nom + Statut -----
-        ctk.CTkLabel(Sous_sous_frame1, text="Nom :").grid(row=0, column=0, sticky="w", pady=5)
-        Entry_nom = EntryL(Sous_sous_frame1)
-        Entry_nom.grid(row=0, column=1, padx=10, pady=5)
+        ctk.CTkLabel(left_panel, text="Statut :").grid(row=0, column=2, padx=10, sticky="w")
+        self.entry_statut = EntryS(left_panel)
+        self.entry_statut.grid(row=0, column=3, pady=5)
 
-        ctk.CTkLabel(Sous_sous_frame1, text="Statut :").grid(row=0, column=2, padx=10, sticky="w")
-        Entry_statut = EntryS(Sous_sous_frame1)
-        Entry_statut.grid(row=0, column=3, pady=5)
+        ctk.CTkLabel(left_panel, text="Type :").grid(row=1, column=0, sticky="w", pady=5)
+        self.entry_type = EntryL(left_panel)
+        self.entry_type.grid(row=1, column=1, padx=10, pady=5)
 
-        # ----- Ligne 1 : Type -----
-        ctk.CTkLabel(Sous_sous_frame1, text="Type :").grid(row=1, column=0, sticky="w", pady=5)
-        Entry_type = EntryL(Sous_sous_frame1)
-        Entry_type.grid(row=1, column=1, padx=10, pady=5)
+        ctk.CTkLabel(left_panel, text="Genre :").grid(row=2, column=0, sticky="w", pady=5)
+        self.entry_genre = EntryL(left_panel)
+        self.entry_genre.grid(row=2, column=1, padx=10, pady=5)
 
-        # ----- Ligne 2 : Genre -----
-        ctk.CTkLabel(Sous_sous_frame1, text="Genre :").grid(row=2, column=0, sticky="w", pady=5)
-        Entry_genre = EntryL(Sous_sous_frame1)
-        Entry_genre.grid(row=2, column=1, padx=10, pady=5)
+        ctk.CTkLabel(left_panel, text="Auteur :").grid(row=3, column=0, sticky="w", pady=5)
+        self.entry_auteur = EntryL(left_panel)
+        self.entry_auteur.grid(row=3, column=1, padx=10, pady=5)
 
-        # ----- Ligne 3 : Auteur -----
-        ctk.CTkLabel(Sous_sous_frame1, text="Auteur :").grid(row=3, column=0, sticky="w", pady=5)
-        Entry_auteur = EntryL(Sous_sous_frame1)
-        Entry_auteur.grid(row=3, column=1, padx=10, pady=5)
+        ctk.CTkLabel(left_panel, text="Éditeur :").grid(row=4, column=0, sticky="w", pady=5)
+        self.entry_editeur = EntryL(left_panel)
+        self.entry_editeur.grid(row=4, column=1, padx=10, pady=5)
 
-        # ----- Ligne 4 : Éditeur -----
-        ctk.CTkLabel(Sous_sous_frame1, text="Éditeur :").grid(row=4, column=0, sticky="w", pady=5)
-        Entry_editeur = EntryL(Sous_sous_frame1)
-        Entry_editeur.grid(row=4, column=1, padx=10, pady=5)
+        image_frame = ctk.CTkFrame(right_panel, width=170, height=240, fg_color="lightgray")
+        image_frame.pack()
+        image_frame.pack_propagate(False)
 
-        # ------- Sous_sous_frame2 (Droite) --------
-        Sous_sous_frame2 = ctk.CTkFrame(Sous_frame1, fg_color=self.cget("fg_color"))
-        Sous_sous_frame2.pack(side="right", padx=10)
+        self.image_label = ctk.CTkLabel(image_frame, text="")
+        self.image_label.pack(expand=True)
 
-        Image_frame = ctk.CTkFrame(Sous_sous_frame2, width=170, height=240, fg_color="lightgray")
-        Image_frame.pack()
-        Image_frame.pack_propagate(False)
+        # -------------------------------
+        # Description (bas)
+        # -------------------------------
+        bottom_row = ctk.CTkFrame(body, fg_color="transparent")
+        bottom_row.pack(fill="x", pady=5)
 
-        # placeholder image
-        image_label = ctk.CTkLabel(Image_frame, text="")
-        image_label.pack(expand=True)
-        # image_label.configure(image=...)
+        Label_Paragraphe(
+            bottom_row,
+            text="Description :"
+        ).pack(anchor="w")
 
-        # ---------- Sous_frame2 (en bas) ----------
-        Sous_frame2 = ctk.CTkFrame(Frame2, fg_color=self.cget("fg_color"))
-        Sous_frame2.pack(fill="x", pady=5)
-
-        Label = Label_Paragraphe(Sous_frame2, text="Description :")
-        Label.pack(anchor="w")
-
-        Entry_desc = EntryXXXL(Sous_frame2)
-        Entry_desc.pack(anchor="w", padx=10)
+        self.entry_description = EntryXXXL(bottom_row)
+        self.entry_description.pack(anchor="w", padx=10)

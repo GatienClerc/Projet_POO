@@ -1,347 +1,172 @@
 import customtkinter as ctk
 
+# ------------------------------------------------------------
+# Styles globaux
+# ------------------------------------------------------------
+BTN_FG = "#1f6aa5"
+BTN_HOVER = "#144e75"
+BTN_TEXT = "white"
+
+FONT_BTN = ("Helvetica", 12)
+FONT_TITLE = ("Helvetica", 55)
+FONT_SUBTITLE = ("Helvetica", 25)
+FONT_P = ("Helvetica", 12)
+
+BG_DARK = "#3b3b3b"
+
 
 # ------------------------------------------------------------
-# Bouton XL
+# Boutons (base)
 # ------------------------------------------------------------
-class BoutonXL(ctk.CTkButton):
+class _BaseButton(ctk.CTkButton):
+    def __init__(self, master, text="Bouton", command=None, width=120, height=40):
+        super().__init__(
+            master,
+            text=text,
+            command=command,
+            fg_color=BTN_FG,
+            hover_color=BTN_HOVER,
+            corner_radius=5,
+            height=height,
+            width=width,
+            font=FONT_BTN,
+            text_color=BTN_TEXT
+        )
+
+
+class BoutonXL(_BaseButton):
     def __init__(self, master, text="Bouton", command=None):
-        super().__init__(
-            master,
-            text=text,
-            command=command,
-            fg_color="#1f6aa5",
-            hover_color="#144e75",
-            corner_radius=5,
-            height=65,
-            width=175,
-            font=("Helvetica", 12),
-            text_color="white"
-        )
+        super().__init__(master, text=text, command=command, width=175, height=65)
 
 
-# ------------------------------------------------------------
-# Bouton L
-# ------------------------------------------------------------
-class BoutonL(ctk.CTkButton):
+class BoutonL(_BaseButton):
     def __init__(self, master, text="Bouton", command=None):
-        super().__init__(
-            master,
-            text=text,
-            command=command,
-            fg_color="#1f6aa5",
-            hover_color="#144e75",
-            corner_radius=5,
-            height=40,
-            width=270,
-            font=("Helvetica", 12),
-            text_color="white"
-        )
+        super().__init__(master, text=text, command=command, width=270, height=40)
 
 
-# ------------------------------------------------------------
-# Bouton M
-# ------------------------------------------------------------
-class BoutonM(ctk.CTkButton):
+class BoutonM(_BaseButton):
     def __init__(self, master, text="Bouton", command=None):
-        super().__init__(
-            master,
-            text=text,
-            command=command,
-            fg_color="#1f6aa5",
-            hover_color="#144e75",
-            corner_radius=5,
-            height=40,
-            width=100,
-            font=("Helvetica", 12),
-            text_color="white"
-        )
+        super().__init__(master, text=text, command=command, width=100, height=40)
 
 
-# ------------------------------------------------------------
-# Bouton XM
-# ------------------------------------------------------------
-class BoutonXM(ctk.CTkButton):
+class BoutonXM(_BaseButton):
     def __init__(self, master, text="Bouton", command=None):
-        super().__init__(
-            master,
-            text=text,
-            command=command,
-            fg_color="#1f6aa5",
-            hover_color="#144e75",
-            corner_radius=5,
-            height=40,
-            width=150,
-            font=("Helvetica", 12),
-            text_color="white"
-        )
+        super().__init__(master, text=text, command=command, width=150, height=40)
 
-# ------------------------------------------------------------
-# Bouton S
-# ------------------------------------------------------------
-class BoutonS(ctk.CTkButton):
+
+class BoutonS(_BaseButton):
     def __init__(self, master, text="Bouton", command=None):
-        super().__init__(
-            master,
-            text=text,
-            command=command,
-            fg_color="#1f6aa5",
-            hover_color="#144e75",
-            corner_radius=5,
-            height=30,
-            width=100,
-            font=("Helvetica", 12),
-            text_color="white"
-        )
+        super().__init__(master, text=text, command=command, width=100, height=30)
 
 
-# ------------------------------------------------------------
-# Bouton XS
-# ------------------------------------------------------------
-class BoutonXS(ctk.CTkButton):
+class BoutonXS(_BaseButton):
     def __init__(self, master, text="Bouton", command=None):
-        super().__init__(
-            master,
-            text=text,
-            command=command,
-            fg_color="#1f6aa5",
-            hover_color="#144e75",
-            corner_radius=5,
-            height=30,
-            width=70,
-            font=("Helvetica", 12),
-            text_color="white"
-        )
+        super().__init__(master, text=text, command=command, width=70, height=30)
 
 
 # ------------------------------------------------------------
-# Bouton retour
+# Labels
 # ------------------------------------------------------------
-class BoutonRetour(ctk.CTkButton):
-    def __init__(self, master, text="<", command=None):
-        super().__init__(
-            master,
-            text=text,
-            command=command,
-            fg_color="#1f6aa5",
-            hover_color="#144e75",
-            corner_radius=5,
-            height=20,
-            width=20,
-            font=("Helvetica", 12),
-            text_color="white"
-        )
+class Label_Titre(ctk.CTkLabel):
+    def __init__(self, master, text="Label"):
+        super().__init__(master, text=text, font=FONT_TITLE, text_color="white")
 
 
-# ------------------------------------------------------------
-# Bouton Avant
-# ------------------------------------------------------------
-class BoutonAvant(ctk.CTkButton):
-    def __init__(self, master, text=">", command=None):
-        super().__init__(
-            master,
-            text=text,
-            command=command,
-            fg_color="#1f6aa5",
-            hover_color="#144e75",
-            corner_radius=5,
-            height=20,
-            width=20,
-            font=("Helvetica", 12),
-            text_color="white"
-        )
+class Label_Sous_titre(ctk.CTkLabel):
+    def __init__(self, master, text="Label"):
+        super().__init__(master, text=text, font=FONT_SUBTITLE, text_color="white")
 
 
-# ------------------------------------------------------------
-# Label avec background
-# ------------------------------------------------------------
+class Label_Paragraphe(ctk.CTkLabel):
+    def __init__(self, master, text="Label"):
+        super().__init__(master, text=text, font=FONT_P, text_color="white")
+
+
 class LabelBG(ctk.CTkFrame):
     def __init__(self, master, text="", width=500, height=40):
         super().__init__(
             master,
             width=width,
             height=height,
-            fg_color="#3b3b3b",  # fond foncé
+            fg_color=BG_DARK,
             corner_radius=5
         )
-
-        # empêche la frame de se réduire à la taille du label
-
-        self.label = ctk.CTkLabel(
-            self,
-            text=text,
-            font=("Helvetica", 14),
-            text_color="white"
-        )
-
-        # centrer le label
+        self.label = ctk.CTkLabel(self, text=text, font=("Helvetica", 14), text_color="white")
         self.label.place(relx=0.5, rely=0.5, anchor="center")
 
 
 # ------------------------------------------------------------
-# Label titre
+# Entries (base)
 # ------------------------------------------------------------
-class Label_Titre(ctk.CTkLabel):
-    def __init__(self, master, text="Label"):
-        super().__init__(
-            master,
-            text=text,
-            font=("Helvetica", 55),
-            text_color="white"
-        )
-
-
-# ------------------------------------------------------------
-# Label sous-titre
-# ------------------------------------------------------------
-class Label_Sous_titre(ctk.CTkLabel):
-    def __init__(self, master, text="Label"):
-        super().__init__(
-            master,
-            text=text,
-            font=("Helvetica", 25),
-            text_color="white"
-        )
-
-
-# ------------------------------------------------------------
-# Label paragraphe
-# ------------------------------------------------------------
-class Label_Paragraphe(ctk.CTkLabel):
-    def __init__(self, master, text="Label"):
-        super().__init__(
-            master,
-            text=text,
-            font=("Helvetica", 12),
-            text_color="white"
-        )
-
-
-# ------------------------------------------------------------
-# Entry texte XXXL
-# ------------------------------------------------------------
-class EntryXXXL(ctk.CTkEntry):
-    def __init__(self, master, placeholder="..."):
+class _BaseEntry(ctk.CTkEntry):
+    def __init__(self, master, placeholder="...", width=200, height=35, justify=None):
         super().__init__(
             master,
             placeholder_text=placeholder,
-            height=150,
-            width=541.5,
+            height=height,
+            width=width,
             corner_radius=5,
             border_width=2,
             font=("Helvetica", 12),
+            justify=justify if justify else "left"
         )
 
 
-# ------------------------------------------------------------
-# Entry texte XXL
-# ------------------------------------------------------------
-class EntryXXL(ctk.CTkEntry):
+class EntryXXXL(_BaseEntry):
     def __init__(self, master, placeholder="..."):
-        super().__init__(
-            master,
-            placeholder_text=placeholder,
-            height=40,
-            width=678.5,
-            corner_radius=5,
-            border_width=2,
-            font=("Helvetica", 12)
-        )
+        super().__init__(master, placeholder=placeholder, width=541.5, height=150)
 
 
-# ------------------------------------------------------------
-# Entry texte XL
-# ------------------------------------------------------------
-class EntryXL(ctk.CTkEntry):
+class EntryXXL(_BaseEntry):
     def __init__(self, master, placeholder="..."):
-        super().__init__(
-            master,
-            placeholder_text=placeholder,
-            height=40,
-            width=270,
-            corner_radius=5,
-            border_width=2,
-            font=("Helvetica", 12),
-            justify="center"
-        )
+        super().__init__(master, placeholder=placeholder, width=678.5, height=40)
 
 
-# ------------------------------------------------------------
-# Entry texte Long
-# ------------------------------------------------------------
-class EntryLong(ctk.CTkEntry):
+class EntryXL(_BaseEntry):
+    def __init__(self, master, placeholder="..."):
+        super().__init__(master, placeholder=placeholder, width=270, height=40, justify="center")
+
+
+class EntryLong(_BaseEntry):
     def __init__(self, master, placeholder="login..."):
-        super().__init__(
-            master,
-            placeholder_text=placeholder,
-            height=25,
-            width=440,
-            corner_radius=5,
-            border_width=2,
-            font=("Helvetica", 12),
-        )
+        super().__init__(master, placeholder=placeholder, width=440, height=25)
 
 
-# ------------------------------------------------------------
-# Entry texte L
-# ------------------------------------------------------------
-class EntryL(ctk.CTkEntry):
+class EntryL(_BaseEntry):
     def __init__(self, master, placeholder="..."):
-        super().__init__(
-            master,
-            placeholder_text=placeholder,
-            height=35,
-            width=200,
-            corner_radius=5,
-            border_width=2,
-            font=("Helvetica", 12)
-        )
+        super().__init__(master, placeholder=placeholder, width=200, height=35)
 
 
-# ------------------------------------------------------------
-# Entry texte M
-# ------------------------------------------------------------
-class EntryM(ctk.CTkEntry):
+class EntryM(_BaseEntry):
     def __init__(self, master, placeholder="..."):
-        super().__init__(
-            master,
-            placeholder_text=placeholder,
-            height=30,
-            width=150,
-            corner_radius=5,
-            border_width=2,
-            font=("Helvetica", 12)
-        )
+        super().__init__(master, placeholder=placeholder, width=150, height=30)
 
 
-# ------------------------------------------------------------
-# Entry texte S
-# ------------------------------------------------------------
-class EntryS(ctk.CTkEntry):
+class EntryS(_BaseEntry):
     def __init__(self, master, placeholder="..."):
-        super().__init__(
-            master,
-            placeholder_text=placeholder,
-            height=35,
-            width=130,
-            corner_radius=5,
-            border_width=2,
-            font=("Helvetica", 12)
-        )
+        super().__init__(master, placeholder=placeholder, width=130, height=35)
 
 
-# ------------------------------------------------------------
-# Entry texte XS
-# ------------------------------------------------------------
-class EntryXS(ctk.CTkEntry):
+class EntryXS(_BaseEntry):
     def __init__(self, master, placeholder="..."):
-        super().__init__(
-            master,
-            placeholder_text=placeholder,
-            height=30,
-            width=110,
-            corner_radius=5,
-            border_width=2,
-            font=("Helvetica", 12)
-        )
+        super().__init__(master, placeholder=placeholder, width=110, height=30)
 
+
+# ------------------------------------------------------------
+# Navigation (flèches)
+# ------------------------------------------------------------
+class BoutonRetour(_BaseButton):
+    def __init__(self, master, text="<", command=None):
+        super().__init__(master, text=text, command=command, width=20, height=20)
+
+
+class BoutonAvant(_BaseButton):
+    def __init__(self, master, text=">", command=None):
+        super().__init__(master, text=text, command=command, width=20, height=20)
+
+
+class NavArrows(ctk.CTkFrame):
+    def __init__(self, master, controller):
+        super().__init__(master, fg_color="transparent")
+        BoutonRetour(self, command=controller.go_back).pack(side="left", padx=(0, 6))
+        BoutonAvant(self, command=controller.go_forward).pack(side="left")

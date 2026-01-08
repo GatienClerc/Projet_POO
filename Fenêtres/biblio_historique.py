@@ -7,64 +7,64 @@ class biblio_historique(ctk.CTkFrame):
         super().__init__(master=parent)
         self.controller = controller
 
-        # -----------------------------------------------------
-        # ELEMENTS UI (page)
-        # -----------------------------------------------------
+        # -------------------------------
+        # Flèches navigation (haut gauche)
+        # -------------------------------
+        NavArrows(self, controller).pack(side="top", anchor="nw", padx=10, pady=10)
 
-        # Creation de la frame 1 ------------------------------
-        Frame1 = ctk.CTkFrame(self, fg_color=self.cget("fg_color"))
-        Frame1.pack(fill="x", pady=10)  # prend toute la largeur de la fenêtre
+        # -------------------------------
+        # Header (titre + utilisateur actif)
+        # -------------------------------
+        header = ctk.CTkFrame(self, fg_color="transparent")
+        header.pack(fill="x", pady=(10, 0))
 
-        # Elements dans la frame
-        label = Label_Sous_titre(Frame1, text="Historique livre")
-        label.place(relx=0.5, rely=0.5, anchor="center")
+        Label_Sous_titre(
+            header,
+            text="Historique livre"
+        ).place(relx=0.5, rely=0.5, anchor="center")
 
-        bouton = BoutonS(Frame1, text="Bibliothéquaire actif")
-        bouton.pack(side="right", padx=20, pady=5)
+        BoutonS(
+            header,
+            text="Bibliothécaire actif"
+        ).pack(side="right", padx=20, pady=5)
 
-        # fleche de navigation retour
-        # ✅ exemple: retour vers login (tu changeras après)
-        btn_retour = BoutonRetour(Frame1, command=lambda: controller.show_page("login"))
-        btn_retour.pack(side="left", padx=(20, 5))
+        # -------------------------------
+        # Contenu principal
+        # -------------------------------
+        body = ctk.CTkFrame(self, fg_color="transparent")
+        body.pack(fill="x", pady=10, padx=90)
 
-        # fleche de navigation avant
-        # ✅ pour l'instant, on met un placeholder (tu changeras vers "livres" plus tard)
-        btn_avant = BoutonAvant(Frame1, command=lambda: controller.show_page("login"))
-        btn_avant.pack(side="left")
+        # -------------------------------
+        # Barre de recherche
+        # -------------------------------
+        search_row = ctk.CTkFrame(body, fg_color="transparent")
+        search_row.pack(fill="x", pady=(0, 10))
 
-        # Creation de la frame 2 ------------------------------
-        Frame2 = ctk.CTkFrame(self, fg_color=self.cget("fg_color"))
-        Frame2.pack(fill="x", pady=10, padx=90)
+        self.entry_search = EntryXXL(search_row, placeholder="Barre de recherche...")
+        self.entry_search.pack(fill="x")
 
-        # Creation de la frame secondaire 1 --------------------
-        Frame_secondaire1 = ctk.CTkFrame(Frame2, fg_color=self.cget("fg_color"))
-        Frame_secondaire1.pack(fill="x", pady=(0, 10))
+        # -------------------------------
+        # Liste (lignes)
+        # -------------------------------
+        list_frame = ctk.CTkFrame(body, fg_color="transparent")
+        list_frame.pack(fill="x")
 
-        Entry = EntryXXL(Frame_secondaire1, placeholder="Barre de recherche...")
-        Entry.pack(fill="x")
+        for _ in range(5):
+            self._create_row(list_frame)
 
-        # Creation de la frame secondaire 2 --------------------
-        Frame_secondaire2 = ctk.CTkFrame(Frame2, fg_color=self.cget("fg_color"))
-        Frame_secondaire2.pack(fill="x")
+    # -------------------------------
+    # Ligne
+    # -------------------------------
+    def _create_row(self, master):
+        row = ctk.CTkFrame(master, fg_color="transparent")
+        row.pack(fill="x")
 
-        # ---------- Sous-Frames ----------#
+        LabelBG(
+            row,
+            text="      ISBN     |       Nom du Livre     |      type     |     statut     |    date limite       "
+        ).pack(anchor="w", pady=10, side="left")
 
-        def ligne(parent_frame):
-            row = ctk.CTkFrame(parent_frame, fg_color=self.cget("fg_color"))
-            row.pack(fill="x")
-
-            LabelBG_Frame = LabelBG(
-                row,
-                text="      ISBN     |       Nom du Livre     |      type     |     statut     |    date limite       "
-            )
-            LabelBG_Frame.pack(anchor="w", pady=10, side="left")
-
-            Bouton = BoutonM(row, text="rendre")
-            Bouton.pack(anchor="w", side="right")
-
-        # 5 lignes (comme ton code)
-        ligne(Frame_secondaire2)
-        ligne(Frame_secondaire2)
-        ligne(Frame_secondaire2)
-        ligne(Frame_secondaire2)
-        ligne(Frame_secondaire2)
+        BoutonM(
+            row,
+            text="rendre"
+        ).pack(anchor="w", side="right")

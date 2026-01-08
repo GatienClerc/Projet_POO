@@ -72,7 +72,7 @@ class App(ctk.CTk):
         # ----------------------------
         # PAGE DE DÉPART
         # ----------------------------
-        self.show_page("login", add_history=False)
+        self.show_page("login")
 
     # ----------------------------
     # Utils fenêtre

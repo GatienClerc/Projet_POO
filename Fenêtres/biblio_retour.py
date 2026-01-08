@@ -7,66 +7,72 @@ class biblio_retour(ctk.CTkFrame):
         super().__init__(master=parent)
         self.controller = controller
 
-        # -----------------------------------------------------
-        # ELEMENTS UI (page)
-        # -----------------------------------------------------
+        # -------------------------------
+        # Flèches navigation (haut gauche)
+        # -------------------------------
+        NavArrows(self, controller).pack(side="top", anchor="nw", padx=10, pady=10)
 
-        # Creation de la frame 1 ------------------------------
-        Frame1 = ctk.CTkFrame(self, fg_color=self.cget("fg_color"))
-        Frame1.pack(fill="x", pady=10)
+        # -------------------------------
+        # Header (titre + utilisateur actif)
+        # -------------------------------
+        header = ctk.CTkFrame(self, fg_color="transparent")
+        header.pack(fill="x", pady=10)
 
-        # Elements dans la frame
-        label = Label_Sous_titre(Frame1, text="Retour livre")
-        label.place(relx=0.5, rely=0.5, anchor="center")
+        Label_Sous_titre(
+            header,
+            text="Retour livre"
+        ).place(relx=0.5, rely=0.5, anchor="center")
 
-        bouton = BoutonS(Frame1, text="Bibliothéquaire actif")
-        bouton.pack(side="right", padx=20, pady=5)
+        BoutonS(
+            header,
+            text="Bibliothécaire actif"
+        ).pack(side="right", padx=20, pady=5)
 
-        # fleches navigation (placeholder pour l’instant)
-        btn_retour = BoutonRetour(Frame1)
-        btn_retour.pack(side="left", padx=(20, 5))
+        # -------------------------------
+        # Contenu principal
+        # -------------------------------
+        body = ctk.CTkFrame(self, fg_color="transparent")
+        body.pack(fill="x", pady=10, padx=90)
 
-        btn_avant = BoutonAvant(Frame1)
-        btn_avant.pack(side="left")
+        # -------------------------------
+        # Champ client
+        # -------------------------------
+        client_frame = ctk.CTkFrame(body, fg_color="transparent")
+        client_frame.pack(fill="x")
 
-        # Frame principale -----------------------------------
-        Frame_principale = ctk.CTkFrame(self, fg_color=self.cget("fg_color"))
-        Frame_principale.pack(fill="x", pady=10, padx=90)
+        ctk.CTkLabel(
+            client_frame,
+            text="N° compte client",
+            font=("Helvetica", 14)
+        ).pack(anchor="w")
 
-        # Creation de la frame 2 ------------------------------
-        Frame2 = ctk.CTkFrame(Frame_principale, fg_color=self.cget("fg_color"))
-        Frame2.pack(fill="x")
+        EntryM(client_frame).pack(anchor="w")
 
-        label = ctk.CTkLabel(Frame2, text="N° compte client", font=("Helvetica", 14))
-        label.pack(anchor="w")
+        # -------------------------------
+        # Liste des livres empruntés
+        # -------------------------------
+        livres_frame = ctk.CTkFrame(body, fg_color="transparent")
+        livres_frame.pack(fill="x")
 
-        entry = EntryM(Frame2)
-        entry.pack(anchor="w")
+        ctk.CTkLabel(
+            livres_frame,
+            text="Livres empruntés :",
+            font=("Helvetica", 14)
+        ).pack(anchor="w")
 
-        # Creation de la frame 3 ------------------------------
-        Frame3 = ctk.CTkFrame(Frame_principale, fg_color=self.cget("fg_color"))
-        Frame3.pack(fill="x")
-
-        label = ctk.CTkLabel(Frame3, text="Livres emprunté:", font=("Helvetica", 14))
-        label.pack(anchor="w")
-
-        # ---------- Sous-Frames ----------#
-
-        def ligne(parent_frame):
-            row = ctk.CTkFrame(parent_frame, fg_color=self.cget("fg_color"))
+        def ligne(parent):
+            row = ctk.CTkFrame(parent, fg_color="transparent")
             row.pack(fill="x")
 
-            LabelBG_Frame = LabelBG(
+            LabelBG(
                 row,
-                text="      ISBN     |       Nom du Livre     |      type     |     description     |    date limite       "
-            )
-            LabelBG_Frame.pack(anchor="w", pady=10, side="left")
+                text="      ISBN     |       Nom du Livre     |      Type     |     Description     |    Date limite       "
+            ).pack(side="left", pady=10)
 
-            Bouton = BoutonM(row, text="rendre")
-            Bouton.pack(anchor="w", side="right")
+            BoutonM(
+                row,
+                text="Rendre"
+            ).pack(side="right")
 
-        # lignes (comme ton code)
-        ligne(Frame3)
-        ligne(Frame3)
-        ligne(Frame3)
-        ligne(Frame3)
+        for _ in range(4):
+            ligne(livres_frame)

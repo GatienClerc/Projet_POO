@@ -7,32 +7,40 @@ class biblio_ajout_livre(ctk.CTkToplevel):
         super().__init__(master=controller)
         self.controller = controller
 
-        # Taille popup
-        window_w = 500
-        window_h = 500
+        self.window_w = 500
+        self.window_h = 500
 
         self.title("Ajouter livre")
         self.resizable(False, False)
 
-        # ✅ Se placer à droite de la fenêtre principale
-        controller.update_idletasks()
-        x_main = controller.winfo_x()
-        y_main = controller.winfo_y()
-        w_main = controller.winfo_width()
+        self._place_right_of_main()
+        self._configure_modal()
+
+        self._build_ui()
+
+    # -------------------------------
+    # Placement / comportement popup
+    # -------------------------------
+    def _place_right_of_main(self):
+        self.controller.update_idletasks()
+        x_main = self.controller.winfo_x()
+        y_main = self.controller.winfo_y()
+        w_main = self.controller.winfo_width()
 
         margin = 10
-        x = x_main + w_main + margin     # à droite du main
-        y = max(0, y_main)               # aligné en haut du main
+        x = x_main + w_main + margin
+        y = max(0, y_main)
 
-        self.geometry(f"{window_w}x{window_h}+{x}+{y}")
+        self.geometry(f"{self.window_w}x{self.window_h}+{x}+{y}")
 
-        # (optionnel) popup au-dessus + focus
-        self.transient(controller)
+    def _configure_modal(self):
+        self.transient(self.controller)
         self.grab_set()
 
-        # ---------------------------------------------------------
-        # UI (identique à ton modèle; labels à adapter si besoin)
-        # ---------------------------------------------------------
+    # -------------------------------
+    # UI
+    # -------------------------------
+    def _build_ui(self):
         self.grid_rowconfigure(0, weight=1)
         self.grid_columnconfigure(0, weight=1)
 
@@ -44,7 +52,11 @@ class biblio_ajout_livre(ctk.CTkToplevel):
 
         ctk.CTkFrame(main, height=10).grid(row=0, column=0, columnspan=2, sticky="ew")
 
-        # -------------------- COLONNE GAUCHE --------------------
+        self._build_left(main)
+        self._build_right(main)
+        self._build_bottom(main)
+
+    def _build_left(self, main):
         Label_Paragraphe(main, text="Nom").grid(row=1, column=0, sticky="w", padx=25, pady=(10, 0))
         self.entry_nom = EntryL(main, placeholder="Nom")
         self.entry_nom.grid(row=2, column=0, sticky="ew", padx=25)
@@ -65,7 +77,7 @@ class biblio_ajout_livre(ctk.CTkToplevel):
         self.entry_pages = EntryL(main, placeholder="Nombres de pages")
         self.entry_pages.grid(row=10, column=0, sticky="ew", padx=25)
 
-        # -------------------- COLONNE DROITE --------------------
+    def _build_right(self, main):
         Label_Paragraphe(main, text="Type").grid(row=1, column=1, sticky="w", padx=25, pady=(10, 0))
         self.entry_type = EntryL(main, placeholder="Type")
         self.entry_type.grid(row=2, column=1, sticky="ew", padx=25)
@@ -78,16 +90,22 @@ class biblio_ajout_livre(ctk.CTkToplevel):
         self.entry_description = EntryL(main, placeholder="Description")
         self.entry_description.grid(row=6, column=1, rowspan=5, sticky="nsew", padx=25)
 
-        # rendre la description plus grande
         main.grid_rowconfigure(10, weight=1)
+        main.grid_rowconfigure(11, weight=0)
 
-        # -------------------- BOUTONS BAS --------------------
+    def _build_bottom(self, main):
         bottom_frame = ctk.CTkFrame(main, fg_color="transparent")
-        bottom_frame.grid(row=11, column=0, columnspan=2, sticky="ew", padx=25, pady=20)
+        bottom_frame.grid(row=11, column=0, columnspan=2, sticky="ew", padx=25, pady=(10, 10))
 
         bottom_frame.grid_columnconfigure(0, weight=1)
         bottom_frame.grid_columnconfigure(1, weight=1)
 
-        BoutonM(bottom_frame, text="annuler", command=self.destroy).grid(row=0, column=0, sticky="e", padx=10)
-        BoutonM(bottom_frame, text="confirmer", command=self.on_confirmer).grid(row=0, column=1, sticky="w", padx=10)
+        BoutonM(bottom_frame, text="annuler", command=self.destroy).grid(
+            row=0, column=0, sticky="e", padx=10
+        )
+        BoutonM(bottom_frame, text="confirmer", command=self.on_confirmer).grid(
+            row=0, column=1, sticky="w", padx=10
+        )
 
+    def on_confirmer(self):
+        self.destroy()
