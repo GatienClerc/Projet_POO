@@ -12,7 +12,7 @@ Compatibilité  : macOS, Linux, Windows
 """
 
 from database import engine, SessionLocal, Bibliotheque
-from models.__init__ import *
+from   models import *
 from fenetre import *
 
 def init_db():

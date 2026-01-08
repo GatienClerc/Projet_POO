@@ -33,3 +33,7 @@ SessionLocal = sessionmaker(
     autocommit=False,
     future=True
 )
+
+def Session():
+    """Retourne une nouvelle Session SQLAlchemy (factory)."""
+    return SessionLocal()
