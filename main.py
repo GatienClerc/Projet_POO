@@ -1,17 +1,17 @@
 import customtkinter as ctk
 
 # Pages (CTkFrame)
-from Fenêtres.biblio_login import biblio_login
-from Fenêtres.biblio_home import biblio_home
-from Fenêtres.biblio_liste import biblio_liste
-from Fenêtres.biblio_emprunt import biblio_emprunt
-from Fenêtres.biblio_retour import biblio_retour
-from Fenêtres.biblio_historique import biblio_historique
-from Fenêtres.biblio_livres import biblio_livres
+from Projet_POO.assets import biblio_login
+from Projet_POO.assets.windows.biblio_home import biblio_home
+from Projet_POO.assets.windows.biblio_liste import biblio_liste
+from Projet_POO.assets.windows.biblio_emprunt import biblio_emprunt
+from Projet_POO.assets.windows.biblio_retour import biblio_retour
+from Projet_POO.assets import biblio_historique
+from Projet_POO.assets.windows.biblio_livres import biblio_livres
 
 # Popups (CTkToplevel)
-from Fenêtres.biblio_ajout_client import biblio_ajout_client
-from Fenêtres.biblio_ajout_livre import biblio_ajout_livre
+from Projet_POO.assets.windows.biblio_ajout_client import biblio_ajout_client
+from Projet_POO.assets.windows.biblio_ajout_livre import biblio_ajout_livre
 
 
 class App(ctk.CTk):
