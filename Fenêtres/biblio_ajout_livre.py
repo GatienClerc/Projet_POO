@@ -3,6 +3,7 @@ from .assets import *
 from tkinter import messagebox
 from database import Session
 from models.livre import Livre
+from sqlalchemy import text as sa_text
 
 
 
@@ -116,67 +117,81 @@ class biblio_ajout_livre(ctk.CTkToplevel):
 
     def add_book(self):
         """
-        Lit les champs de l'UI et ajoute un Livre via SQLAlchemy, sans modifier l'interface graphique.
-        Affiche le retour via un messagebox standard (aucun nouveau widget).
+        Lit les champs de l'UI et ajoute un Livre via SQLAlchemy.
+        Utilise tous les champs de l’interface, avec validations et sans doublons par ISBN.
         """
-
         nom = (self.entry_nom.get() or "").strip()
-        livre_id_raw = (self.entry_id.get() or "").strip()  # si tu stockes un identifiant perso (optionnel)
-        isbn = (self.entry_isbn.get() or "").strip() or None
-        annee_raw = (self.entry_annee.get() or "").strip()
-        pages_raw = (self.entry_pages.get() or "").strip()
-        type_txt = (self.entry_type.get() or "").strip() or None
-        genre_txt = (self.entry_genre.get() or "").strip() or None
-        description = (self.entry_description.get() or "").strip() or None
-
         if not nom:
             messagebox.showerror("Ajout du livre", "Le nom (titre) est obligatoire.")
             return
 
-        # Convertir numériques si fournis
-        annee = None
-        if annee_raw:
-            try:
-                annee = int(annee_raw)
-            except ValueError:
-                messagebox.showerror("Ajout du livre", "L'année de parution doit être un entier.")
-                return
+        isbn_raw = (self.entry_isbn.get() or "").strip()
+        if not isbn_raw:
+            messagebox.showerror("Ajout du livre", "L'ISBN est obligatoire.")
+            return
+        try:
+            isbn_int = int(isbn_raw)
+        except ValueError:
+            messagebox.showerror("Ajout du livre", "L'ISBN doit être un entier.")
+            return
 
-        pages = None
+        # Année -> on convertit en 'AAAA-01-01'
+        annee_raw = (self.entry_annee.get() or "").strip()
+        if not annee_raw:
+            messagebox.showerror("Ajout du livre", "L'année de parution est obligatoire (AAAA).")
+            return
+        try:
+            annee_int = int(annee_raw)
+            if annee_int < 1 or annee_int > 9999:
+                raise ValueError
+        except ValueError:
+            messagebox.showerror("Ajout du livre", "L'année de parution doit être un entier AAAA valide.")
+            return
+        date_str = f"{annee_int:04d}-01-01"
+
+        # Pages (optionnel)
+        pages_raw = (self.entry_pages.get() or "").strip()
         if pages_raw:
             try:
-                pages = int(pages_raw)
+                pages_int = int(pages_raw)
+                if pages_int < 1:
+                    raise ValueError
             except ValueError:
-                messagebox.showerror("Ajout du livre", "Le nombre de pages doit être un entier.")
+                messagebox.showerror("Ajout du livre", "Le nombre de pages doit être un entier >= 1.")
                 return
+        else:
+            pages_int = None
 
-        # 3) Persistance via SQLAlchemy
+        type_txt = (self.entry_type.get() or "").strip() or None
+        genre_txt = (self.entry_genre.get() or "").strip() or None
+        description = (self.entry_description.get() or "").strip() or None
+
+        # L’ID saisi dans l’UI n’est pas utilisé (la DB autoincrémente). On l’ignore.
+
         session = Session()
         try:
-            # (Optionnel) empêcher doublon par ISBN si fourni
-            if isbn:
-                exists = session.query(Livre).filter(Livre.isbn == isbn).first()
-                if exists:
-                    messagebox.showwarning(
-                        "Ajout du livre",
-                        f"Un livre avec l'ISBN {isbn} existe déjà (id={exists.id})."
-                    )
-                    return
+            session.execute(text("PRAGMA foreign_keys = ON"))
+            ensure_livre_extra_columns(session)
 
-            # Créer l'objet ORM : adapte les noms de colonnes à TON modèle
+            # Empêcher doublon par ISBN (idempotent)
+            # NOTE: si tu es en SQLAlchemy 2.x pure, tu peux remplacer par select(...).scalars().first()
+            exists = session.query(Livre).filter(Livre.isbn == isbn_int).first()
+            if exists:
+                messagebox.showwarning(
+                    "Ajout du livre",
+                    f"Un livre avec l'ISBN {isbn_int} existe déjà (Id={getattr(exists, 'id', '?')})."
+                )
+                return
+
             book = Livre(
-                titre=nom,  # si ta colonne s'appelle autrement (ex. 'nom'), adapte ici
-                isbn=isbn,
-                annee_parution=annee,  # adapte si c'est 'annee' ou 'annee_publication'
-                pages=pages,  # adapte si c'est 'nb_pages'
-                type=type_txt,  # si tu utilises une FK 'type_id', remplace ici par l'id
-                genre=genre_txt,  # pareil : 'genre_id' si tu as une table Genre
+                titre=nom,
+                isbn=isbn_int,
+                annee_parution=date_str,
+                pages=pages_int,
+                type=type_txt,
+                genre=genre_txt,
                 description=description,
-                # auteur=...,              # si tu as un champ 'auteur', récupère-le d'un autre champ si nécessaire
-                # id_interne=livre_id_raw, # si tu as un identifiant interne dans le modèle
-                created_by="UI"  # utile si tu logges via events pour l'historique
             )
-
             session.add(book)
             session.commit()
 
@@ -187,9 +202,5 @@ class biblio_ajout_livre(ctk.CTkToplevel):
         finally:
             session.close()
 
-        # 4) Succès : feedback + fermer la fenêtre (tu faisais déjà destroy)
-        messagebox.showinfo("Ajout du livre", f"Livre ajouté avec succès (id={book.id}).")
+        messagebox.showinfo("Ajout du livre", f"Livre ajouté avec succès (Id={getattr(book, 'id', '?')}).")
         self.destroy()
-
-
-

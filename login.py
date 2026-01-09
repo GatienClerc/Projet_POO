@@ -16,8 +16,9 @@ class biblio_login(ctk.CTkFrame):
         self.entry_login = EntryXL(center_frame, placeholder="Login")
         self.entry_login.pack(pady=10)
 
-        self.entry_password = EntryXL(center_frame, placeholder="Mot de passe")
+        self.entry_password = EntryXL(center_frame, placeholder="Password")
         self.entry_password.pack(pady=10)
+        self.entry_password.configure(show="*")
 
         btn = ctk.CTkButton(center_frame, text="connexion", command=self.login)
         btn.pack(pady=20)

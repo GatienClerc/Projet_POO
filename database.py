@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 Nom du script  : statuts.py
-Description    : bibliotheque comme principe la POO avec customtkinter et  sqlalchimy
+Description    : bibliotheque comme principe la POO avec customtkinter et sqlalchimy
 Auteur         : Gatien Clerc & Jason Edmonds
 Basé sur       : exemple de JIE
 Collaborateur  : Iago Dolfini, Timmy Marendaz
